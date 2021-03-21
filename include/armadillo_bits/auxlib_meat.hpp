@@ -507,7 +507,7 @@ auxlib::det(const Mat<eT>& A)
   
   const uword N = A.n_rows;
   
-  if(N <= 4)
+  if((N <= 4) && is_cx<eT>::no)
     {
     const eT det_val = auxlib::det_tinymat(A, N);
     
