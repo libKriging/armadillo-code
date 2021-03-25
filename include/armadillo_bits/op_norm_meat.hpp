@@ -906,7 +906,7 @@ op_norm::mat_norm_2(const Proxy<T1>& P)
   if(U.M.is_finite() == false)  { arma_debug_warn("norm(): given matrix has non-finite elements"); }
   
   Col<T> S;
-  svd(S, P.Q);
+  svd(S, U.M);
   
   const T outval = (S.n_elem > 0) ? S[0] : T(0);
   
