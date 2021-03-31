@@ -125,4 +125,19 @@ det(const T& x)
 
 
 
+// for forward compatibility
+template<typename T1>
+inline
+typename enable_if2< is_supported_blas_type<typename T1::elem_type>::value, bool >::result
+det(typename T1::elem_type& out_val, const Base<typename T1::elem_type,T1>& X)
+  {
+  arma_extra_debug_sigprint();
+  
+  out_val = det(X.get_ref());
+  
+  return true;
+  }
+
+
+
 //! @}

@@ -22,7 +22,7 @@
 //! log determinant of mat
 template<typename T1>
 inline
-void
+bool
 log_det
   (
         typename T1::elem_type&          out_val,
@@ -44,15 +44,17 @@ log_det
     out_val  = eT(Datum<T>::nan);
     out_sign = T(0);
     
-    arma_warn("log_det(): failed to find determinant");
+    arma_debug_warn("log_det(): failed to find determinant");
     }
+  
+  return status;
   }
 
 
 
 template<typename T1>
 inline
-void
+bool
 log_det
   (
         typename T1::elem_type& out_val,
@@ -78,7 +80,7 @@ log_det
     out_val  = eT(0);
     out_sign =  T(1);
     
-    return;
+    return true;
     }
   
   eT x = A[0];
@@ -96,6 +98,8 @@ log_det
   
   out_val  = val;
   out_sign = sign;
+  
+  return true;
   }
 
 
