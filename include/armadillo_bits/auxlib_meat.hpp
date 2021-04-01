@@ -300,7 +300,7 @@ auxlib::inv_sympd(Mat<eT>& out, const Base<eT,T1>& X)
     if(is_cx<eT>::yes)  { arma_debug_warn("inv_sympd(): given matrix is not hermitian"); }
     }
   
-  if((out.n_rows <= 4) && is_cx<eT>::no)
+  if(out.n_rows <= 4)
     {
     Mat<eT> tmp;
     
@@ -507,7 +507,7 @@ auxlib::det(const Mat<eT>& A)
   
   const uword N = A.n_rows;
   
-  if((N <= 4) && is_cx<eT>::no)
+  if(N <= 4)
     {
     const eT det_val = auxlib::det_tinymat(A, N);
     
@@ -4354,11 +4354,9 @@ auxlib::solve_square_fast(Mat<typename T1::elem_type>& out, Mat<typename T1::ele
   {
   arma_extra_debug_sigprint();
   
-  typedef typename T1::elem_type eT;
-  
   const uword A_n_rows = A.n_rows;
   
-  if((A_n_rows <= 4) && is_cx<eT>::no)
+  if(A_n_rows <= 4)
     {
     const bool status = auxlib::solve_square_tiny(out, A, B_expr.get_ref());
     
@@ -4380,6 +4378,8 @@ auxlib::solve_square_fast(Mat<typename T1::elem_type>& out, Mat<typename T1::ele
   
   #if defined(ARMA_USE_ATLAS)
     {
+    typedef typename T1::elem_type eT;
+    
     arma_debug_assert_atlas_size(A);
     
     podarray<int> ipiv(A_n_rows + 2);  // +2 for paranoia: old versions of Atlas might be trashing memory
@@ -4391,6 +4391,8 @@ auxlib::solve_square_fast(Mat<typename T1::elem_type>& out, Mat<typename T1::ele
     }
   #elif defined(ARMA_USE_LAPACK)
     {
+    typedef typename T1::elem_type eT;
+    
     arma_debug_assert_blas_size(A);
     
     blas_int n    = blas_int(A_n_rows);  // assuming A is square
@@ -4724,11 +4726,9 @@ auxlib::solve_sympd_fast_common(Mat<typename T1::elem_type>& out, Mat<typename T
   {
   arma_extra_debug_sigprint();
   
-  typedef typename T1::elem_type eT;
-  
   const uword A_n_rows = A.n_rows;
   
-  if((A_n_rows <= 4) && is_cx<eT>::no)
+  if(A_n_rows <= 4)
     {
     const bool status = auxlib::solve_square_tiny(out, A, B_expr.get_ref());
     
@@ -4750,6 +4750,8 @@ auxlib::solve_sympd_fast_common(Mat<typename T1::elem_type>& out, Mat<typename T
   
   #if defined(ARMA_USE_ATLAS)
     {
+    typedef typename T1::elem_type eT;
+    
     arma_debug_assert_atlas_size(A, out);
     
     int info = 0;
@@ -4761,6 +4763,8 @@ auxlib::solve_sympd_fast_common(Mat<typename T1::elem_type>& out, Mat<typename T
     }
   #elif defined(ARMA_USE_LAPACK)
     {
+    typedef typename T1::elem_type eT;
+    
     arma_debug_assert_blas_size(A, out);
     
     char     uplo = 'L';
