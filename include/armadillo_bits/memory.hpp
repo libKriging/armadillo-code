@@ -15,6 +15,10 @@
 // limitations under the License.
 // ------------------------------------------------------------------------
 
+#if !defined(ARMA_ALIEN_MEM_ALLOC_FUNCTION) || !defined(ARMA_ALIEN_MEM_FREE_FUNCTION)
+#error "ALIEN ALLOCATION FUNCTIONS SHOULD BE DEFINED FIRST"
+#endif
+  
 
 //! \addtogroup memory
 //! @{
