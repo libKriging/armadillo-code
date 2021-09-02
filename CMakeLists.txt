@@ -396,6 +396,7 @@ else()
     if(OpenBLAS_FOUND)
       
       set(ARMA_USE_BLAS true)
+      set(ARMA_USE_LAPACK true)
       set(ARMA_LIBS ${ARMA_LIBS} ${OpenBLAS_LIBRARIES})
       
       message(STATUS "")
